@@ -11,7 +11,7 @@ function sym_fourier
     S = subs(Sw, w, 2*pi*v);
 
     % ЧХ
-    subplot(2, 1, 1);
+    subplot(3, 1, 1);
     hold on;
     h = ezplot(real(S), [xmin, xmax]);
     set_pretty(h, [xmin, xmax, -1, 1.5]);
@@ -22,12 +22,18 @@ function sym_fourier
     xlabel('\nu');
     grid;
 
-    subplot(2, 1, 2);
-
+    subplot(3, 1, 2);
     h = ezplot(abs(S), [xmin, xmax]);
     set_pretty(h, [xmin, xmax, -1, 1.5]);
     title('Frequency response');
     xlabel('\nu');
+
+    subplot(3, 1, 3);
+    h = ezplot(atan(real(S) / imag(S)), [xmin, xmax]);
+    set_pretty(h, [xmin, xmax, -1, 1.5]);
+    title('angle(S)');
+    xlabel('\nu');
+
 
     return;
 
