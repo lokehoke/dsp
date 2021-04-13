@@ -4,12 +4,15 @@
 #include <vector>
 #include <string>
 #include <cstddef>
+#include <numbers>
 
 namespace dsp {
-    using TGeneral = std::complex<double>;
+    using TDouble = double;
+    using TGeneral = std::complex<TDouble>;
     using TSignal = std::vector<TGeneral>;
 
     constexpr TGeneral i(0, 1);
+    constexpr auto pi = std::numbers::pi_v<TDouble>;
 
     TSignal dft(const TSignal& x, bool invert = false);
     TSignal idft(const TSignal& x);

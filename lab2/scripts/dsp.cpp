@@ -1,5 +1,4 @@
 #include <cmath>
-#include <numbers>
 #include <cstddef>
 #include <limits>
 #include <fstream>
@@ -10,11 +9,11 @@
 dsp::TSignal dsp::dft(const dsp::TSignal& x, bool invert) {
     TSignal y(x.size(), 0);
 
-    auto exp_m = (invert ? 1 : -1) * 2 * std::numbers::pi * dsp::i / static_cast<double>(x.size());
+    auto exp_m = (invert ? 1 : -1) * 2 * dsp::pi * dsp::i / static_cast<dsp::TDouble>(x.size());
 
     for (std::size_t k = 0; k < x.size(); ++k) {
         for (std::size_t j = 0; j < x.size(); ++j) {
-            y[k] += x[j] * std::exp(exp_m * static_cast<double>(k * j));
+            y[k] += x[j] * std::exp(exp_m * static_cast<dsp::TDouble>(k * j));
         }
 
         if (invert) {
@@ -39,7 +38,7 @@ dsp::TSignal dsp::fft(const dsp::TSignal& x, bool invert) {
 
     for (std::size_t i = n, step = 1; i != 1; i /= 2, ++step) {
         dsp::TGeneral w = 1;
-        dsp::TGeneral wn = std::exp((invert ? 1 : -1) * std::numbers::pi / (1 << (k - step)) * dsp::i);
+        dsp::TGeneral wn = std::exp((invert ? 1 : -1) * dsp::pi / (1 << (k - step)) * dsp::i);
 
         for (std::size_t l = 0, num = 0; l < ( 1 << (k - step)); ++l) {
             for (std::size_t j = 0; j < (1 << (step - 1)); ++j, ++num) {
@@ -125,11 +124,12 @@ dsp::TGeneral dsp::mse(const dsp::TSignal& a, const dsp::TSignal& b) {
         mse += std::pow((a[i] - b[i]), 2);
     }
 
-    return mse / static_cast<double>(a.size());
+    return mse / static_cast<dsp::TDouble>(a.size());
 }
 
 void dsp::writeSignalToFile(const dsp::TSignal& a, const std::string& file) {
     std::ofstream fout(file);
+    fout.precision(std::numeric_limits<dsp::TDouble>::max_digits10);
     for (const auto& i : a) {
         fout << i.real() << " " << i.imag() << std::endl;
     }
@@ -139,7 +139,7 @@ dsp::TSignal dsp::readFromFile(const std::string& file) {
     std::ifstream fin(file);
     dsp::TSignal signal;
 
-    double real, im;
+    dsp::TDouble real, im;
     fin >> real >> im;
 
     while(!fin.eof()) {
@@ -153,7 +153,7 @@ dsp::TSignal dsp::readFromFile(const std::string& file) {
 dsp::TSignal dsp::getRandomSignal(std::size_t n) {
     std::random_device rd;
     std::default_random_engine eng(rd());
-    std::uniform_real_distribution<double> distr(-1'000.0, 1'000.0);
+    std::uniform_real_distribution<dsp::TDouble> distr(-1'000.0, 1'000.0);
 
     dsp::TSignal signal(n);
 
