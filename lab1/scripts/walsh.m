@@ -5,7 +5,7 @@ function res = walsh(x, k)
     res = ones(1, length(x));
     bin = dec2bin(k);
 
-    for (i = 1:length(bin)) 
+    for (i = 1:length(bin))
         if (bin(i) == '1')
             res = rademacher(x,length(bin)-i).*res;
         end

@@ -92,8 +92,6 @@ dsp::TSignal dsp::convolution_fast(const dsp::TSignal& x, const dsp::TSignal& y)
     }
     N <<= 1;
 
-    auto norm = std::sqrt(N);
-
     x1.resize(N, 0);
     y1.resize(N, 0);
 

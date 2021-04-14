@@ -1,9 +1,6 @@
 clear;
 close all;
 
-% total_num = 50; % всего коэффициентов Фурье
-
-
 mse = zeros(2, 20);
 for (total_num = 1:20)
     T0 = 0; % начало отрезка
@@ -36,10 +33,3 @@ hold on;
 plot(mse(1, :));
 plot(mse(2, :));
 legend("mse walsh", "mse haar");
-
-
-% axis([T0, T1, min(fvalues) - 0.1, max(fvalues) + 0.1]);
-% title(sprintf('%i members of the %s Fourier series', total_num, basis));
-% drawnow;
-
-% sum((signal - out).^2) / N;

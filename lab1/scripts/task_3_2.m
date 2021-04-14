@@ -19,7 +19,7 @@ for (i = 1:8)
     % количество интервалов
     [out, mse(i), snr(i)] = uniform_quantization(signal, 0, 1, i);
 
-    plot(out);
+    stairs(out);
     mse_teor(i) = (1 / 2^i)^2 / 12; % учебник стр 119
 end
 

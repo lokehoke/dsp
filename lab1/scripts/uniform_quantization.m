@@ -4,7 +4,7 @@ function [out, mse, snr] = uniform_quantization(signal, min, max, i)
     % определяем равные интервалы
     lvl = min:((max-min) / lvlCount):max;
     N = length(signal);
-    
+
     % определяем уровни квантования
     d = zeros(1, lvlCount);
     for (j = 1:lvlCount)
@@ -12,7 +12,6 @@ function [out, mse, snr] = uniform_quantization(signal, min, max, i)
         % plot([1:N], zeros(1, N) + d(j), 'm');
     end
 
-    
     % квантуем
     out = zeros(1, N);
     for (j = 1:N)

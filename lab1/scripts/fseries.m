@@ -4,10 +4,10 @@ function c = fseries(target_fun, T0, T1, K, basis)
     %   c = fseries(target_fun, T0, T1, K, basis)
     %   target_fun – исходнаяфункция
     %   basis – 'fourier' (по умолчанию), 'walsh', 'rademacher'
-    %   T0, T1 – начало и конец интервала анализа функции 
+    %   T0, T1 – начало и конец интервала анализа функции
     %   K – вектор номеров искомых коэффициентов
     %   c – вектор коэффициентов Фурье
-    % 
+    %
     % Пример:
     %   >> c = fseries(@(x) sin(x), 0, 1, [0:3], 'walsh')
     %   c =
@@ -15,7 +15,7 @@ function c = fseries(target_fun, T0, T1, K, basis)
     if (nargin < 5)
         basis = 'fourier';
     end
-    
+
     switch lower(basis)
         case 'fourier'
             f_int =  @(t, k) target_fun(t) .* exp(-i * 2 * pi * k * t / (T1 - T0));
@@ -30,7 +30,7 @@ function c = fseries(target_fun, T0, T1, K, basis)
             c = haar_coef(target_fun, K, T0, T1);
         return;
     end
-    
+
     l = 1;
     for (k = K)
         if (fromZero && k < 0)

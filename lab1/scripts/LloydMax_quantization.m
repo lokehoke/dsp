@@ -1,4 +1,4 @@
-function [out, mse, snr] = LloydMax_quantization(signal, mu, sigma, i)
+ function [out, mse, snr, mse_teor] = LloydMax_quantization(signal, mu, sigma, i)
     if (i == 1)
         t = [-inf 0.0 inf];
         d = [-0.7979 0.7979];
@@ -25,3 +25,9 @@ function [out, mse, snr] = LloydMax_quantization(signal, mu, sigma, i)
 
     mse = sum((signal - out).^2) / N;
     snr = 20 * log10(sqrt(sum((out).^2) / N) / sqrt(sum((signal - out).^2) / N));
+
+    mse_teor = 0;
+    for ( j = 1:(2^i) )
+        f = @(x) (x - d(j)).^2 ./ sigma ./ sqrt(2 .* pi) .* exp( -1 .* (x - mu).^2 ./ 2 ./ (sigma.^2));
+        mse_teor = mse_teor + integral(f, t(j), t(j+1));
+    end

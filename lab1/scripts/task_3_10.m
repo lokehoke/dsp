@@ -2,7 +2,7 @@ close all;
 
 mu = 10;
 sigma = 1;
-N = 100;
+N = 1000;
 
 signal = normrnd(mu, sigma, [1, N]);
 
